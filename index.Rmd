@@ -1,5 +1,5 @@
 ---
-title: "Logan"
+title: "Logan Ossentjuk"
 image: "LoganOssentjuk_Headshot.jpg"
 site: distill::distill_website
 links:
@@ -12,7 +12,7 @@ links:
   - label: Email
     url: "mailto:loganossentjuk@bren.ucsb.edu"
 output:
-  postcards::jolla_blue
+  postcards::trestles
 ---
  
 Raised in Colorado, I am now an aspiring Marine Environmental Scientist and 
