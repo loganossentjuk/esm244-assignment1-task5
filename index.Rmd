@@ -1,18 +1,19 @@
 ---
-title: "Home"
-description: |
-  Welcome to the website. I hope you enjoy it!
+title: "Logan"
+image: "LoganOssentjuk_Headshot.jpg"
 site: distill::distill_website
+links:
+  - label: LinkedIn
+    url: "https://linkedin.com/"
+  - label: Twitter
+    url: "https://twitter.com/"
+  - label: GitHub
+    url: "https://github.com/"
+  - label: Email
+    url: "mailto:loganossentjuk@bren.ucsb.edu"
+output:
+  postcards::jolla_blue
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-
-# Learn more about creating websites with Distill at:
-# https://rstudio.github.io/distill/website.html
-
-# Learn more about publishing to GitHub Pages at:
-# https://rstudio.github.io/distill/publish_website.html#github-pages
-
-```
-
+ 
+Raised in Colorado, I am now an aspiring Marine Environmental Scientist and 
+filmmaker. I moved to Seattle to for undergraduate, and now moved to Santa Barbara for grad school. 
