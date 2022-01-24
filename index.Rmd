@@ -15,5 +15,4 @@ output:
   postcards::trestles
 ---
  
-Raised in Colorado, I am now an aspiring Marine Environmental Scientist and 
-filmmaker. I moved to Seattle to for undergraduate, and now live in Santa Barbara for grad school. 
+I grew up in Colorado, and always wanted to be a Marine Biologist. I am pursing my dreams as an aspiring Marine Environmental Scientist and Filmmaker. I went to undergrad at Seattle University, and now am pursing a Masters of Environmental Science and Management at UC Santa Barbara. 
