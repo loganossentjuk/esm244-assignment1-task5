@@ -3,17 +3,17 @@
     {
       "path": "about.html",
       "title": "About Me",
-      "description": "Get to know me better",
+      "description": "Get to know me better\n",
       "author": [],
-      "contents": "\n\n\n\n",
-      "last_modified": "2022-01-23T17:03:07-08:00"
+      "contents": "\nInterests\nI lahd\nExperience\n\n\n\n",
+      "last_modified": "2022-02-05T23:04:26-08:00"
     },
     {
       "path": "blog.html",
       "title": "Blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2022-02-05T23:01:14-08:00"
+      "last_modified": "2022-02-05T23:03:19-08:00"
     },
     {
       "path": "index.html",

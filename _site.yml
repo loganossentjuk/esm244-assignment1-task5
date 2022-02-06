@@ -1,5 +1,5 @@
 name: "."
-title: "Bio"
+title: "Welcome to my site!"
 theme: postcards.css
 description: |
     Bio
@@ -12,4 +12,6 @@ navbar:
       href: about.html
     - text: "Blog"
       href: blog.html
+    - text: "Welcome"
+      href: welcome.html
 output: distill::distill_article
