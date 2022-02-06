@@ -2,11 +2,18 @@
   "articles": [
     {
       "path": "about.html",
-      "title": "About this site",
-      "description": "Some additional details about the website",
+      "title": "About Me",
+      "description": "Get to know me better",
       "author": [],
       "contents": "\n\n\n\n",
       "last_modified": "2022-01-23T17:03:07-08:00"
+    },
+    {
+      "path": "blog.html",
+      "title": "Blog",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2022-02-05T23:01:14-08:00"
     },
     {
       "path": "index.html",
@@ -30,5 +37,5 @@
       "last_modified": "2022-01-23T17:03:07-08:00"
     }
   ],
-  "collections": []
+  "collections": ["posts/posts.json"]
 }

@@ -1,0 +1,19 @@
+[
+  {
+    "path": "posts/2022-02-05-welcome/",
+    "title": "Welcome",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Logan Ossentjuk",
+        "url": {}
+      }
+    ],
+    "date": "2022-02-05",
+    "categories": [],
+    "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2022-02-05T23:02:31-08:00",
+    "input_file": "welcome.knit.md"
+  }
+]
