@@ -3,7 +3,6 @@ title: "Welcome to my site!"
 theme: postcards.css
 description: |
     Welcome to my website!
-site: distill::distil_website
 output_dir: "docs"
 navbar:
   right:

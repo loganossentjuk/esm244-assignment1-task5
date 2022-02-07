@@ -1,5 +1,6 @@
 ---
 title: "About Me"
+image: "LoganOssentjuk_Headshot.jpg"
 description: |
   Get to know me better
 output:
