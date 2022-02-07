@@ -10,7 +10,7 @@ links:
     url: "mailto:loganossentjuk@bren.ucsb.edu"
 output:
   postcards::trestles
-  
+site: distill::distill_website
 ---
  
 I grew up in Colorado, and always wanted to be a Marine Biologist. I am pursing my dreams as an aspiring Marine Environmental Scientist and Filmmaker. I went to undergrad at Seattle University, and now am pursing a Masters of Environmental Science and Management at UC Santa Barbara. 

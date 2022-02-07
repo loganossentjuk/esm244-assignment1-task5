@@ -1,7 +1,7 @@
 [
   {
-    "path": "posts/2022-02-05-welcome/",
-    "title": "Welcome",
+    "path": "posts/2022-02-07-welcome/",
+    "title": "welcome",
     "description": "A short description of the post.",
     "author": [
       {
@@ -9,11 +9,11 @@
         "url": {}
       }
     ],
-    "date": "2022-02-05",
+    "date": "2022-02-07",
     "categories": [],
     "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
     "preview": {},
-    "last_modified": "2022-02-07T13:10:17-08:00",
-    "input_file": "welcome.knit.md"
+    "last_modified": "2022-02-07T13:42:11-08:00",
+    "input_file": {}
   }
 ]

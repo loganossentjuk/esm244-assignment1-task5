@@ -4,8 +4,7 @@ image: "LoganOssentjuk_Headshot.jpg"
 description: |
   Get to know me better
 output:
-  distill::distill_article:
-    self_contained: false 
+  postcards::jolla
 ---
 
 ```{r setup, include=FALSE}

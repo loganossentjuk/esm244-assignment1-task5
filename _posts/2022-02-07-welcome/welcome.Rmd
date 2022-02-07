@@ -1,13 +1,13 @@
 ---
-title: "Welcome"
+title: "welcome"
 description: |
   A short description of the post.
 author:
   - name: Logan Ossentjuk
-date: 2022-02-05
+date: 2022-02-07
 output:
   distill::distill_article:
-    self_contained: false 
+    self_contained: false
 ---
 
 
