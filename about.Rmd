@@ -12,8 +12,14 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ### Interests 
-
-I lahd
+        
+My career goal is to become a Coastal Environmental Scientist who conducts research and produces educational, call-to-action conservation films. As a Film Studies Minor at Seattle University, I developed skills in capturing, editing and producing both photo and video content. I am proficient in Excel and R, and have studied how to code and construct environmental sensors. I am currently completing my Masters in Environmental Science and Management at UC Santa Barbara’s Bren School to enhance my skills in using my marine research to create films that provide an entertaining and informative view into the science of the ocean. 
 
 ### Experience 
+
+My fascination with marine organisms began at age 3 reveling in a flourish of Reef Triggerfish while snorkeling in Hawaii. This passion rippled in the following:
+      •	Obtained my SSI Open Water Diver Certification in 2013
+      •	Attended a marine biology focused camp in San Diego in 2016 that provided me with hands on        marine field research experience
+      •	Worked in an on-campus research lab at Seattle University conducting seagrass field surveys         and genetic lab analysis
+        •	Studied abroad in the Galapagos Islands, gaining direct skills in scuba research,                 completing my SNSI Advanced Diver Certification, laying transects to assess biodiversity            with quadrats underwater, conducting whale surveys using acoustic sensors, and tagging              resident sea turtles. 
 
