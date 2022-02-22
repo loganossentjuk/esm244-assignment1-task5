@@ -1,0 +1,303 @@
+---
+title: "Task 3 - Acid Rain Effects on Maple Growth"
+author: "Logan Ossentjuk"
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+# Overview 
+
+This report investigates data collected between 1981 and 2017 on the survival and growth rates of palmetto species (*Serenoa repens* and *Sabal etonia*) at the Archbold Biological Station in South Florida. A binary logistic regression analysis is completed based upon features key to palmetto growth. These key variables are found via data visualization and examination. AIC analysis 10-fold cross validation are then performed. The models are trained on the entire data set and results are used to determine which  is more comprehensive and accurate. 
+
+
+**Data citation:** Abrahamson, W.G. 2019. Survival, growth and biomass estimates of two dominant palmetto species of south-central Florida from 1981 - 2017, ongoing at 5-year intervals ver 1. Environmental Data Initiative. https://doi.org/10.6073/pasta/f2f96ec76fbbd4b9db431c79a770c4d5
+Get the data: palmetto.csv
+**More information and metadata:** https://portal.edirepository.org/nis/metadataviewer?packageid=edi.317.1
+
+```{r setup, include=TRUE, message= FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(here)
+library(tidyverse)
+library(janitor)
+library(patchwork)
+library(lubridate)
+library(kableExtra) 
+library(ggbeeswarm)
+library(GGally)
+library(jtools)
+library(caret)
+library(AICcmodavg)
+library(broom)
+```
+
+## Data Visualization:  
+### Performed to determine variables of importance
+
+```{r}
+###Wrangling and subsetting 
+palmetto <- read_csv(here('_portfolio', 'data', 'palmetto.csv')) %>% 
+  clean_names()
+
+palmetto_exp <- palmetto %>% 
+  mutate(species = as.character(species)) %>% 
+  select(height, length, width, green_lvs, species) %>% 
+  drop_na() %>% 
+  ggpairs(aes(color = species))
+#palmetto_sub
+
+palmetto_sub <-palmetto %>% 
+  mutate(species = as.factor(species)) %>% 
+  select(height, length, width, green_lvs, species) %>% 
+  drop_na()
+```
+
+```{r}
+### Figures
+
+p1 <- ggplot(data = palmetto_sub, aes (x = species, y = height)) + 
+  geom_boxplot(aes(fill = species, width = 0.2)) + 
+   stat_summary(fun=mean, 
+               geom="point", 
+               shape=20, 
+               size=4, 
+               color="white", 
+               fill="red") +
+   scale_fill_manual(values = c("skyblue", "forestgreen"), 
+                    name = "Species") +
+  facet_wrap(~species) +
+  theme_classic() + 
+  theme(legend.position = "none") +
+  labs( x = "Species", 
+        y = "Height")
+
+p2 <- ggplot(data = palmetto_sub, aes (x = species, y = green_lvs)) + 
+  geom_boxplot(aes(fill = species, width = 0.2)) +
+  stat_summary(fun=mean, 
+               geom="point", 
+               shape=20, 
+               size=4, 
+               color="white", 
+               fill="red") +
+  scale_fill_manual(values = c("skyblue","forestgreen"), 
+                     name = "Species") +
+   facet_wrap(~species) +
+   theme_classic() + 
+  theme(legend.position = "none") +
+  labs( x = "Species ", 
+        y = "Green Leaf Cover")
+
+p3 <- ggplot(data = palmetto_sub, aes(x = species, y = length)) + 
+  geom_boxplot(aes(fill = species, width = 0.2)) + 
+  stat_summary(fun=mean, 
+               geom="point", 
+               shape=20, 
+               size=4, 
+               color="white", 
+               fill="red") +
+   scale_fill_manual(values = c("skyblue", "forestgreen"), 
+                    name = "Species") +
+  facet_wrap(~species) +
+  theme_classic() + 
+  theme(legend.position = "none") +
+  labs( x = "Species", 
+        y = "Length")
+
+p1 | p2 | p3 
+
+
+```
+
+
+**Figure 1:** compares the ability for three measured variables on Palmetto canopy (*Height, Green Leaf Percent, Length*) to differentiate between two species. Species 1 (*Serenoa repens*), Species 2 (*Sabal etonia*). 
+
+**Takeaway:** Given the above figure, green leaf cover and canopy length are the best predictor variables for differentiating between species. The displayed differences median (black line), mean (white dot) and spread are most significant between species for these variables. Plant height is shown to be nearly identical between species and is therefore a poor differentiator. 
+
+#### Binary Logistic Regression
+
+```{r subset for blr}
+binary_palmetto <- palmetto_sub %>% 
+  mutate( species = case_when(species %in% c('1') ~ 'Serenoa repens',
+                              species %in% c('2') ~ 'Sabal etonia')) %>% 
+  filter(species %in% c('Serenoa repens', 'Sabal etonia')) %>% 
+  mutate(species = fct_drop(species)) %>% 
+  #select(-island, -year) %>%  
+  drop_na()
+```
+
+```{r}
+### Model 1
+
+f1 <- species ~ height + length + width + green_lvs
+
+palmetto_blr1 <- glm(formula = f1, 
+                    data = binary_palmetto,
+                    family = 'binomial')
+
+### See results
+
+#palmetto_blr1
+
+#summary(palmetto_blr1)
+
+blr1_tidy1 <- broom::tidy(palmetto_blr1)
+
+blr1_fitted <- palmetto_blr1 %>% 
+  broom::augment(type.predict = 'response')
+
+### Model 2
+f2 <- species ~ height + width + green_lvs
+
+palmetto_blr2 <- glm(formula = f2, 
+                    data = binary_palmetto,
+                    family = 'binomial')
+
+#palmetto_blr2
+
+#summary(palmetto_blr2)
+
+blr1_tidy2 <- broom::tidy(palmetto_blr2)
+
+blr2_fitted <- palmetto_blr2 %>% 
+  broom::augment(type.predict = 'response')
+```
+
+```{r, include = FALSE}
+#Visualize models 
+
+ggplot(binary_palmetto, aes(x= green_lvs, y = length)) +
+  geom_jitter(aes(color = species))
+
+ggplot(binary_palmetto, aes(x= green_lvs, y = height)) +
+  geom_jitter(aes(color = species))
+```
+
+```{r include = FALSE}
+### Let's plot the probability
+ggplot(data = blr1_fitted, aes(x = green_lvs, y = .fitted)) +
+  geom_point(aes(color = species)) +
+  geom_smooth(aes(color = species), se = FALSE) +
+  labs (x = "Green Leaves Percentage",
+        y = 'Probability of outcome "Serenoa repens"')
+
+effect_plot(palmetto_blr1,
+            pred = green_lvs, 
+            interval = TRUE, 
+            y.label = "Probability of 'Serenoa repens'")
+
+effect_plot(palmetto_blr1,
+            pred = width, 
+            interval = TRUE, 
+            y.label = "Probability of 'Serenoa repens'")
+```
+
+```{r, include = FALSE}
+ggplot(binary_palmetto, aes(x= green_lvs, y = width)) +
+  geom_jitter(aes(color = species))
+
+effect_plot(palmetto_blr2,
+            pred = green_lvs, 
+            interval = TRUE, 
+            y.label = "Probability of 'Sabal etonia'")
+
+effect_plot(palmetto_blr2,
+            pred = width, 
+            interval = TRUE, 
+            y.label = "Probability of 'Sabal etonia'")
+```
+
+## Model Training and Selection 
+
+*Model 1:* Determines Palmetto species based on height canopy length, canopy width and green leaf cover
+
+*Model 2:* Determines Palmetto species based on height, canopy width and green leaf cover
+
+#### AIC values 
+
+```{r}
+palmetto_aic <- AICcmodavg::aictab(list(palmetto_blr1, palmetto_blr2))
+#Mod 1: 5194.567
+#Mod 2: 5194.567
+```
+
+#### 10-fold cross validation, use prediction accuracy as our metric 
+
+```{r}
+set.seed(333)
+
+tr_ctrl <- trainControl(method = 'repeatedcv', number = 10, repeats = 10)
+
+### Train the model 
+
+model1 <- train(f1, data = palmetto_sub,
+                method = 'glm', family = 'binomial',
+                trControl = tr_ctrl)
+# model1
+# accuracy: 0.9168912
+
+model2 <- train(f2, data = palmetto_sub,
+                method = 'glm', family = 'binomial',
+                trControl = tr_ctrl)
+# model2
+# accuracy: 0.8988258
+
+```
+*Model 1 AIC:* `r round(palmetto_aic$AICc[1], 2)`
+
+*Model 2 AIC:* `r round(palmetto_aic$AICc[2], 2)`
+
+**Results:** Model 1 superiorly selects the correct Palmetto species given inputs (**AIC:** `r round(palmetto_aic$AICc[1], 2)`, **Accuracy** = 92%) as compared to Model 2 (**AIC:** `r round(palmetto_aic$AICc[2], 2)`, **Accuracy** = 90%, **Delta AIC** = `r round(palmetto_aic$Delta_AICc[2], 1)`). Given these differences Model 1 is clearly the superior option.
+
+
+```{r}
+palmetto_blr1_tidy <- broom::tidy(palmetto_blr1) %>% 
+  mutate(term = case_when(
+         term == "(Intercept)" ~ "Intercept",
+         term == "height" ~ "Height",
+         term == "length" ~ "Length",
+         term == "width" ~ "Width",
+         term == "green_lvs" ~ "Green Leaf Cover"))
+
+palmetto_blr1_tidy %>% 
+  mutate(p.value = ifelse(p.value < .005, paste("<0.005"))) %>% 
+  kable(digits = 3, col.names = c('Term', 'Estimate', 'Standard Error', 'Statistic', 'P Value'), caption = '<center/>Table 1: Summary of variable coeffiencents and their statistical significance. All p values <0.001.</center>') %>%
+          kable_classic(bootstrap_options = 'striped', full_width = FALSE)
+```
+**Conclusion:** All p values were shown to be significant, but the Estimate value gives a better measure here of variable effectiness. Height `r round(palmetto_blr1_tidy$estimate[5], 2)` and leaf cover show strong positive relationships meaning it is more likely that the species is *Serenoa repens* (reference species) as each individual variable changes when everything else stays constant. 
+
+### Model 1 Prediction Success Rate
+
+```{r}
+
+palmetto_blr1_fitted <- palmetto_blr1 %>% 
+  augment(type.predict = "response") %>% 
+  mutate(classify_species = case_when(
+    .fitted > .5 ~ "Serenoa repens", 
+    .fitted < .5 ~ "Sabal etonia"), 
+  success = case_when(
+    species == classify_species ~ 'yes',
+    species != classify_species ~ 'no'
+  ))
+
+sum_success <- palmetto_blr1_fitted %>% 
+  group_by(species, success) %>% 
+  summarize(count = n()) %>% 
+  pivot_wider(names_from = success,
+              values_from = count) %>% 
+  mutate(percent_correct = yes/(no+yes) *100)
+
+sum_success %>% 
+  kable(col.names = c('Species',
+                      'Incorrect',
+                      'Correct',
+                      '%Correctly Classified'),
+        caption = '**Table 2: Model 1 success rate at differentiating Palmetto species after trained on entire dataset') %>% 
+  kable_classic(full_width = FALSE)
+```
+
+
+**Conclusion:** Model 1 is the most effective in determining whether a Palmetto species is *Serenoa repens* or *Sabal etonia* when given height, canopy width and length, and green leaf cover. It determines each species with high accuracy (*Serenoa repens* = `r round(sum_success$percent_correct[1], 1)`, *Sabal etonia* = `r round(sum_success$percent_correct[2], 1)`). With a relatively constrained data set these are incredible results, however future work should be done to improve classification accuracy and train the model on future data. 
+
+
+**Data citation:** Abrahamson, W.G. 2019. Survival, growth and biomass estimates of two dominant palmetto species of south-central Florida from 1981 - 2017, ongoing at 5-year intervals ver 1. Environmental Data Initiative. https://doi.org/10.6073/pasta/f2f96ec76fbbd4b9db431c79a770c4d5
+Get the data: palmetto.csv
