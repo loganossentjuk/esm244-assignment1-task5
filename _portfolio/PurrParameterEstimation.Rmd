@@ -2,9 +2,11 @@
 title: "Parameter Estimation with Purr"
 author: "Logan Ossentjuk"
 date: "2/5/2022"
-output: 
-  html_document:
-    code_folding: hide
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: code
+    theme: cerulean
 ---
 # Overview 
 

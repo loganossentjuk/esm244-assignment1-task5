@@ -1,9 +1,11 @@
 ---
 title: "PCA Analysis of Global Climate Data"
 author: "Logan Ossentjuk"
-output: 
-  html_document:
-    code_folding: hide
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: code
+    theme: cerulean
 ---
 
 # Overview: 
@@ -63,7 +65,7 @@ autoplot(world_env_pca,
          loadings.label.colour = 'black',
          loadings.label.vjust = -0.5) + 
         #scale_color_manual(values = c('blue', 'purple', 'orange')) +
-        theme_grey()
+        theme_void()
 ```
 <br> 
 **Figure 1. **  Illustrates principle components analysis results of the acquired climate data. Each country is shown by a green dot. Orange arrows demonstrate chosen variables of interest where increased arrow length denotes an increased role in explaining the variation within this data set. 
@@ -88,5 +90,3 @@ Cloudiness and Wind are negatively correlated while Cloudiness, Tree Canopy Cove
 - Driest month of rainfall was negatively correlated with temperature range, perhaps pointing to the fact that desert-like environments have large temperature swings throughout the day.
 - Rain seasonality was almost completely unrelated to temperature seasonality.
 - The variation in accessibility to cities was not captured very well by PCA 1 or PCA 2, indicating a weak relationship between accessibility to cities and the other variables analyzed.
-
-```{r}

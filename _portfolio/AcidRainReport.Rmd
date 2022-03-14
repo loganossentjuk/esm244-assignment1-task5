@@ -4,9 +4,12 @@ author: "Logan Ossentjuk"
 output:
   distill::distill_article:
     self_contained: false
+    code_folding: code
+    theme: cerulean
+    
 ---
 
-# Overview 
+# Overview {.tabset .tabset-fade}
 
 This report investigates data collected between 1981 and 2017 on the survival and growth rates of palmetto species (*Serenoa repens* and *Sabal etonia*) at the Archbold Biological Station in South Florida. A binary logistic regression analysis is completed based upon features key to palmetto growth. These key variables are found via data visualization and examination. AIC analysis 10-fold cross validation are then performed. The models are trained on the entire data set and results are used to determine which  is more comprehensive and accurate. 
 
