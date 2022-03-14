@@ -4,7 +4,7 @@ image: "LoganOssentjuk_Headshot.jpg"
 description: |
   Get to know me better
 output:
-  postcards::jolla
+  postcards::trestles
 ---
 
 ```{r setup, include=FALSE}

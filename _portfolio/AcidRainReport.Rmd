@@ -1,5 +1,5 @@
 ---
-title: "Task 3 - Acid Rain Effects on Maple Growth"
+title: "Acid Rain Effects on Maple Growth"
 author: "Logan Ossentjuk"
 output:
   distill::distill_article:
