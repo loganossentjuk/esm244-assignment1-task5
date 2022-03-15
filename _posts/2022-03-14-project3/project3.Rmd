@@ -1,7 +1,6 @@
 ---
 title: "Parameter Estimation With Purr"
-description: |
-  A short description of the post.
+
 author:
   - name: Logan Ossentjuk
     url: {}

@@ -21,7 +21,7 @@ library(janitor)
 library(broom)
 library(kableExtra)
 library(cowplot)
-library(modelr)
+x1 library(modelr)
 library(purrr)
 ```
 

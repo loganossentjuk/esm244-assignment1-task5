@@ -1,7 +1,5 @@
 ---
 title: "PCA On Global Climate Data"
-description: |
-  A short description of the post.
 author:
   - name: Logan Ossentjuk
     url: {}

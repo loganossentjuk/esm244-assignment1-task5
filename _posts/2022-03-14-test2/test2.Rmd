@@ -1,7 +1,6 @@
 ---
 title: "Willamette Falls Time Series Analysis"
-description: |
-  A short description of the post.
+
 author:
   - name: Logan Ossentjuk
     url: {}
